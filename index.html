@@ -26,9 +26,20 @@
         return false;
       }
     }
-    const getNumber = index => {
-      return inputs[index - 1].value
+
+    const inputsNaN = () => {
+      if (Number.isNaN(getNumber(1)) || Number.isNaN(getNumber(2))) {
+        return true;
+      } else {
+        return false;
+      }
     }
+
+    
+    const getNumber = index => {
+      return parseFloat(inputs[index - 1].value);
+    }
+
 
     const updateLabel = () => {
       let number1 = getNumber(1);
@@ -41,9 +52,13 @@
       if (inputsAreEmpty()) {
         label.textContent = 'Error: one or both inputs are empty.';
         return;
+      } else if(inputsNaN()) {
+        label.textContent = 'Error: one or both inputs is/are NaN.';
+        return;
       }
       updateLabel();
     }
+    
 
     let label = document.getElementById('results');
     let inputs = document.querySelectorAll('input');
